@@ -16,3 +16,6 @@ format:
 
 mypy:
 	mypy src
+
+pylint:
+	pylint src

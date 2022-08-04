@@ -13,3 +13,6 @@ install-dev:
 format:
 	black src
 	isort src
+
+mypy:
+	mypy src

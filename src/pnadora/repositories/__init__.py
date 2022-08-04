@@ -1,15 +1,9 @@
-from .account_rule_repository import AccountRuleRepository
-from .account_usage_repository import AccountUsageRepository
-from .domain_rule_repository import DomainRuleRepository
-from .domain_usage_repository import DomainUsageRepository
-from .rule_repository import RuleRepository
-from .usage_repository import UsageRepository
+from .account_email_repository import AccountEmailRepository
+from .domain_email_repository import DomainEmailRepository
+from .email_repository import EmailRepository
 
 __all__ = [
-    "RuleRepository",
-    "UsageRepository",
-    "DomainRuleRepository",
-    "AccountRuleRepository",
-    "AccountUsageRepository",
-    "DomainUsageRepository",
+    "EmailRepository",
+    "AccountEmailRepository",
+    "DomainEmailRepository",
 ]

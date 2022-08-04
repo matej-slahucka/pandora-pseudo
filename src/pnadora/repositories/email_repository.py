@@ -11,7 +11,7 @@ from ..models import (
 )
 
 
-class RuleRepository(ABC):
+class EmailRepository(ABC):
     @abstractmethod
     def find_emails(self, emails: list[Email]) -> list[StoredEmail]:
         ...
@@ -30,4 +30,8 @@ class RuleRepository(ABC):
     def save_usage(
         self, email: Email, request: GetEmailRequest
     ) -> list[EmailWithUsage]:
+        ...
+
+    @abstractmethod
+    def get_usage(self) -> None:
         ...

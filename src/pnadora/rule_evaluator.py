@@ -1,13 +1,13 @@
 from .models import Email, StoredEmail
-from .repositories import RuleRepository
+from .repositories import EmailRepository
 
 
 class RuleEvaluator:
-    def __init__(self, rule_repository: RuleRepository) -> None:
-        self._rule_repository = rule_repository
+    def __init__(self, email_repository: EmailRepository) -> None:
+        self._email_repository = email_repository
 
     def get_usable_candidates(self, candidates: list[Email]) -> list[StoredEmail]:
-        stored_emailes = self._rule_repository.find_emails(candidates)
+        stored_emailes = self._email_repository.find_emails(candidates)
         active_emails = self._filter_active_emails(stored_emailes)
         # TODO: in the current Pandora impl there is not check for rules, should it be there?
         return active_emails

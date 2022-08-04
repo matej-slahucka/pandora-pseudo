@@ -2,7 +2,7 @@ from abc import ABC, abstractmethod
 
 from .logger import Logger
 from .models import Email, GetEmailRequest, Rule
-from .repositories import RuleRepository
+from .repositories import EmailRepository
 
 
 class RuleNotFoundError(Exception):
@@ -10,12 +10,12 @@ class RuleNotFoundError(Exception):
 
 
 class EmailSelector(ABC):
-    def __init__(self, rule_repository: RuleRepository, logger: Logger) -> None:
-        self._rule_repository = rule_repository
+    def __init__(self, email_repository: EmailRepository, logger: Logger) -> None:
+        self._email_repository = email_repository
         self._logger = logger
 
     def select_email(self, request: GetEmailRequest) -> Email | None:
-        rules = self._rule_repository.get_rules(request.channel, request.carrier)
+        rules = self._email_repository.get_rules(request.channel, request.carrier)
 
         if not rules:
             self._logger.warn("No rules matched")
@@ -32,7 +32,7 @@ class EmailSelector(ABC):
         return email
 
     def _get_email_by_rule(self, rule: Rule, request: GetEmailRequest) -> Email | None:
-        emails_with_usage = self._rule_repository.get_emails_by_usage(request, rule)
+        emails_with_usage = self._email_repository.get_emails_by_usage(request, rule)
 
         if not emails_with_usage:
             self._logger.warn("No domains for rule", rule=rule.name)
@@ -53,7 +53,7 @@ class EmailSelector(ABC):
         )
 
         email = self._create_email(email_with_usage.email)
-        self._rule_repository.save_usage(email, request)
+        self._email_repository.save_usage(email, request)
 
         return email
 

@@ -4,19 +4,19 @@ from .email_address_getter import EmailAddressGetter
 from .email_selector import EmailSelector
 from .logger import Logger
 from .models import Email, GetEmailRequest, Tier
-from .repositories import AccountRuleRepository, DomainRuleRepository, RuleRepository
+from .repositories import AccountEmailRepository, DomainEmailRepository, EmailRepository
 from .rule_evaluator import RuleEvaluator
 from .usage_checker import UsageCheckerFactory
 
 
-class RuleRepositoryFactory:
+class EmailRepositoryFactory:
     TIER_TO_RULE_REPOSITORY = {
-        Tier.TIER1: DomainRuleRepository,
-        Tier.TIER2: DomainRuleRepository,
-        Tier.TIER3: AccountRuleRepository,
+        Tier.TIER1: DomainEmailRepository,
+        Tier.TIER2: DomainEmailRepository,
+        Tier.TIER3: AccountEmailRepository,
     }
 
-    def create_rule_repository(self, _: Tier) -> RuleRepository:
+    def create_email_repository(self, _: Tier) -> EmailRepository:
         raise NotImplemented
 
 
@@ -31,12 +31,12 @@ class EmailSelectorFactory:
 
 def get_email_address_use_case(
     request: GetEmailRequest,
-    rule_repository_factory: RuleRepositoryFactory,
+    email_repository_factory: EmailRepositoryFactory,
     usage_checker_factory: UsageCheckerFactory,
     email_selector_factory: EmailSelectorFactory,
     logger: Logger,
 ) -> Email:
-    rule_repository = rule_repository_factory.create_rule_repository(request.tier)
+    rule_repository = email_repository_factory.create_email_repository(request.tier)
 
     rule_evaluator = RuleEvaluator(rule_repository)
     usage_checker = usage_checker_factory.create_usage_checker(request.tier)

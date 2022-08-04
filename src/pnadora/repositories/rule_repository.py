@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 
-from ..models import Tier, Rule
+from ..models import Rule, Tier
 
 
 class RuleRepository(ABC):

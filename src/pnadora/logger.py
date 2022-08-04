@@ -1,6 +1,5 @@
 from abc import ABC, abstractmethod
 
-
 Context = str | dict | str | int | list
 
 

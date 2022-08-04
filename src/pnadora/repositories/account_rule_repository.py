@@ -1,4 +1,4 @@
-from ..models import Tier, Rule
+from ..models import Rule, Tier
 from .rule_repository import RuleRepository
 
 

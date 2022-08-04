@@ -1,5 +1,5 @@
 from .models import Email
-from .rule_repository import RuleRepository
+from .repositories import RuleRepository
 
 
 class RuleEvaluator:

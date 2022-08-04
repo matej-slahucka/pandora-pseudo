@@ -1,3 +1,4 @@
+from datetime import datetime
 from enum import Enum
 from typing import Protocol
 
@@ -14,11 +15,33 @@ class Email(Protocol):
 
 
 class Rule(Protocol):
-    ...
+    id: int
+    frequency_window: int  # number of days
+    frequency: int
+    name: str
+
+
+Channel = str
+Carrier = str
 
 
 class GetEmailRequest(Protocol):
     tier: Tier
-    candidate: Email
-    channel: str
-    carrier: str
+    candidates: list[Email]
+    channel: Channel
+    carrier: Carrier
+
+
+class StoredEmail(Protocol):
+    id: int
+    email: Email
+    tld: str
+    tier: Tier
+    active: bool
+    created: datetime
+    updated: datetime
+
+
+class EmailWithUsage(Protocol):
+    email: Email
+    frequency: int

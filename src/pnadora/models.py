@@ -1,3 +1,4 @@
+from dataclasses import dataclass
 from datetime import datetime
 from enum import Enum
 from typing import Protocol
@@ -9,9 +10,25 @@ class Tier(str, Enum):
     TIER3 = "tier3"
 
 
-class Email(Protocol):
+class Algorithm(str, Enum):
+    BID = "BID"
+    NAME_SURNAME_NUM = "NAME_SURNAME_NUM"
+    SHORTENED_NAME = "SHORTENED_NAME"
+
+
+@dataclass
+class Email:
     domain: str
     name: str
+
+
+@dataclass
+class Domain:
+    domain: str
+
+
+# can be expanded with login
+Resource = Email | Domain
 
 
 class Rule(Protocol):
@@ -21,15 +38,36 @@ class Rule(Protocol):
     name: str
 
 
+class AlgorithmData(Protocol):
+    name: str
+    surname: str
+    number: int
+
+
 Channel = str
 Carrier = str
 
 
-class GetEmailRequest(Protocol):
+@dataclass
+class GetEmailRequestBase:
     tier: Tier
     candidates: list[Email]
     channel: Channel
     carrier: Carrier
+
+
+class GetEmailRequestEmail(GetEmailRequestBase):
+    pass
+
+
+@dataclass
+class GetEmailRequestDomain(GetEmailRequestBase):
+    algorithm_data: AlgorithmData
+    algorithm: Algorithm
+    booking_id: int
+
+
+GetEmailRequest = GetEmailRequestEmail | GetEmailRequestDomain
 
 
 class StoredEmail(Protocol):
@@ -42,6 +80,7 @@ class StoredEmail(Protocol):
     updated: datetime
 
 
-class EmailWithUsage(Protocol):
-    email: Email
+@dataclass
+class ResourceWithUsage:
+    resource: Resource
     frequency: int

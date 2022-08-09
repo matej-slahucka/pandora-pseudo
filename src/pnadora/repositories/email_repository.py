@@ -4,14 +4,14 @@ from ..models import (
     Carrier,
     Channel,
     Email,
-    EmailWithUsage,
     GetEmailRequest,
+    ResourceWithUsage,
     Rule,
     StoredEmail,
 )
 
 
-class EmailRepository(ABC):
+class ResourceRepository(ABC):
     @abstractmethod
     def find_emails(self, emails: list[Email]) -> list[StoredEmail]:
         ...
@@ -23,13 +23,13 @@ class EmailRepository(ABC):
     @abstractmethod
     def get_emails_by_usage(
         self, request: GetEmailRequest, rule: Rule
-    ) -> list[EmailWithUsage]:
+    ) -> list[ResourceWithUsage]:
         ...
 
     @abstractmethod
     def save_usage(
         self, email: Email, request: GetEmailRequest
-    ) -> list[EmailWithUsage]:
+    ) -> list[ResourceWithUsage]:
         ...
 
     @abstractmethod

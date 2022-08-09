@@ -1,8 +1,8 @@
 from __future__ import annotations
 
-from .email_selector import EmailSelector
+from .email_selector.resource_selector import EmailSelector
 from .logger import Logger
-from .models import Email, GetEmailRequest
+from .models import Email, GetEmailRequest, Resource
 from .rule_evaluator import RuleEvaluator
 from .usage_checker import UsageChecker
 
@@ -12,7 +12,7 @@ class EmailAddressGetter:
         self,
         rule_evaluator: RuleEvaluator,
         usage_checker: UsageChecker,
-        email_selector: EmailSelector,
+        email_selector: EmailSelector[Resource, GetEmailRequest],
         logger: Logger,
     ) -> None:
         self._rule_evaluator = rule_evaluator

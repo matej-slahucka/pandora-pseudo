@@ -1,6 +1,6 @@
 from ..logger import Logger
 from ..models import Tier
-from ..repositories import EmailRepository
+from ..repositories import ResourceRepository
 from .always_allowing_usage_checker import AlwaysAllowingUsageChecker
 from .counting_usage_checker import CountingUsageChecker
 from .usage_checker import UsageChecker
@@ -10,8 +10,8 @@ class UsageCheckerFactory:
     def __init__(
         self,
         logger: Logger,
-        domain_email_repository: EmailRepository,
-        account_email_repository: EmailRepository,
+        domain_email_repository: ResourceRepository,
+        account_email_repository: ResourceRepository,
     ) -> None:
         self._logger = logger
         self._domain_email_repository = domain_email_repository

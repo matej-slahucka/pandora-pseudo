@@ -1,9 +1,9 @@
 from .models import Email, StoredEmail
-from .repositories import EmailRepository
+from .repositories import ResourceRepository
 
 
 class RuleEvaluator:
-    def __init__(self, email_repository: EmailRepository) -> None:
+    def __init__(self, email_repository: ResourceRepository) -> None:
         self._email_repository = email_repository
 
     def get_usable_candidates(self, candidates: list[Email]) -> list[StoredEmail]:

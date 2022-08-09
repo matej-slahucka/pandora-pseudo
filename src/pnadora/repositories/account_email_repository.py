@@ -1,6 +1,6 @@
-from .email_repository import EmailRepository
+from .email_repository import ResourceRepository
 
 
-class AccountEmailRepository(EmailRepository):
+class AccountEmailRepository(ResourceRepository):
     # TODO: implement
     pass

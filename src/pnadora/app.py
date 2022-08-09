@@ -1,10 +1,14 @@
 from __future__ import annotations
 
 from .email_address_getter import EmailAddressGetter
-from .email_selector import EmailSelector
+from .email_selector.resource_selector import EmailSelector
 from .logger import Logger
-from .models import Email, GetEmailRequest, Tier
-from .repositories import AccountEmailRepository, DomainEmailRepository, EmailRepository
+from .models import Email, GetEmailRequest, Resource, Tier
+from .repositories import (
+    AccountEmailRepository,
+    DomainEmailRepository,
+    ResourceRepository,
+)
 from .rule_evaluator import RuleEvaluator
 from .usage_checker import UsageCheckerFactory
 
@@ -16,7 +20,7 @@ class EmailRepositoryFactory:
         Tier.TIER3: AccountEmailRepository,
     }
 
-    def create_email_repository(self, _: Tier) -> EmailRepository:
+    def create_email_repository(self, _: Tier) -> ResourceRepository:
         raise NotImplemented
 
 
@@ -25,7 +29,7 @@ class GetEmailAddressError(Exception):
 
 
 class EmailSelectorFactory:
-    def create_email_selector(self) -> EmailSelector:
+    def create_email_selector(self) -> EmailSelector[Resource, GetEmailRequest]:
         raise NotImplemented
 
 

@@ -1,7 +1,0 @@
--r requirements.in
-
-pip-tools
-black
-isort
-mypy
-pylint

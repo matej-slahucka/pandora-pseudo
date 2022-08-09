@@ -9,3 +9,6 @@ mypy:
 
 pylint:
 	poetry run pylint src
+
+clean:
+	find src -name "__pycache__" | xargs rm -rf

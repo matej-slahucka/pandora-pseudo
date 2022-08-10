@@ -5,25 +5,10 @@ from typing import Generic, TypeGuard, TypeVar, final
 from ..logger import Logger
 from ..models import Email, GetEmailRequest, Resource, Rule
 from ..repositories import ResourceRepository
+from .errors import RuleNotFoundError, UnexpectedRequestError, UnexpectedResourceError
 
 T = TypeVar("T", bound=Resource)
 U = TypeVar("U", bound=GetEmailRequest)
-
-
-class EmailSelectorError(Exception):
-    pass
-
-
-class RuleNotFoundError(EmailSelectorError):
-    pass
-
-
-class UnexpectedRequestError(EmailSelectorError):
-    pass
-
-
-class UnexpectedResourceError(EmailSelectorError):
-    pass
 
 
 class EmailSelector(ABC, Generic[T, U]):
@@ -33,7 +18,9 @@ class EmailSelector(ABC, Generic[T, U]):
 
     @final
     def select_email(self, request: GetEmailRequest) -> Email | None:
-        rules = self._resource_repository.get_rules(request.channel, request.carrier)
+        rules = self._resource_repository.get_rules_sorted_by_usage(
+            request.channel, request.carrier
+        )
 
         if not rules:
             self._logger.warn("No rules matched")
@@ -51,22 +38,20 @@ class EmailSelector(ABC, Generic[T, U]):
 
     @final
     def _get_email_by_rule(self, rule: Rule, request: GetEmailRequest) -> Email | None:
-        resources_with_usage = self._resource_repository.get_emails_by_usage(
+        resource_with_usage = self._resource_repository.get_resource_with_usage_by_rule(
             request, rule
         )
 
-        if not resources_with_usage:
+        if not resource_with_usage:
             self._logger.warn("No domains for rule", rule=rule.name)
             return None
 
-        resource_with_usage = resources_with_usage[0]
         if resource_with_usage.frequency >= rule.frequency:
             self._logger.warn("All domains for rule used", rule=rule.name)
             return None
 
         resource = resource_with_usage.resource
 
-        # TODO: abstract away email from account vs email from domains using the generator
         self._logger.info(
             "resource_selected",
             rule=rule.name,

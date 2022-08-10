@@ -9,4 +9,4 @@ class CountingUsageChecker(UsageChecker):
 
     def is_usage_within_limits(self, request: GetEmailRequest) -> bool:
         # query
-        raise NotImplemented
+        raise NotImplementedError

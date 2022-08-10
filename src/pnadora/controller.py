@@ -3,25 +3,10 @@ from __future__ import annotations
 from .email_address_getter import EmailAddressGetter
 from .email_selector import EmailSelectorFactory
 from .logger import Logger
-from .models import Email, GetEmailRequest, Tier
-from .repositories import (
-    AccountEmailRepository,
-    DomainEmailRepository,
-    ResourceRepository,
-)
+from .models import Email, GetEmailRequest
+from .repositories import EmailRepositoryFactory
 from .rule_evaluator import RuleEvaluator
 from .usage_checker import UsageCheckerFactory
-
-
-class EmailRepositoryFactory:
-    TIER_TO_RULE_REPOSITORY = {
-        Tier.TIER1: DomainEmailRepository,
-        Tier.TIER2: DomainEmailRepository,
-        Tier.TIER3: AccountEmailRepository,
-    }
-
-    def create_email_repository(self, tier: Tier) -> ResourceRepository:
-        return self.TIER_TO_RULE_REPOSITORY[tier]()
 
 
 class GetEmailAddressError(Exception):

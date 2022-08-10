@@ -12,20 +12,20 @@ from .email_repository import ResourceRepository
 
 class AccountEmailRepository(ResourceRepository):
     def find_emails(self, emails: list[Email]) -> list[StoredEmail]:
-        raise NotImplemented
+        raise NotImplementedError
 
-    def get_rules(self, channel: Channel, carrier: Carrier) -> list[Rule]:
-        raise NotImplemented
+    def get_rules_sorted_by_usage(
+        self, channel: Channel, carrier: Carrier
+    ) -> list[Rule]:
+        raise NotImplementedError
 
-    def get_emails_by_usage(
+    def get_resource_with_usage_by_rule(
         self, request: GetEmailRequest, rule: Rule
-    ) -> list[ResourceWithUsage]:
-        raise NotImplemented
+    ) -> ResourceWithUsage | None:
+        raise NotImplementedError
 
-    def save_usage(
-        self, email: Email, request: GetEmailRequest
-    ) -> list[ResourceWithUsage]:
-        raise NotImplemented
+    def save_usage(self, email: Email, request: GetEmailRequest) -> None:
+        raise NotImplementedError
 
     def get_usage(self) -> None:
-        raise NotImplemented
+        raise NotImplementedError

@@ -1,3 +1,3 @@
-from .factory import EmailSelectorFactory
+from .factory import EmailSelectorAny, EmailSelectorFactory
 
-__all__ = ["EmailSelectorFactory"]
+__all__ = ["EmailSelectorFactory", "EmailSelectorAny"]

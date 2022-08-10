@@ -54,6 +54,7 @@ class GetEmailRequestBase:
     candidates: list[Email]
     channel: Channel
     carrier: Carrier
+    booking_id: int
 
 
 class GetEmailRequestEmail(GetEmailRequestBase):
@@ -64,7 +65,6 @@ class GetEmailRequestEmail(GetEmailRequestBase):
 class GetEmailRequestDomain(GetEmailRequestBase):
     algorithm_data: AlgorithmData
     algorithm: Algorithm
-    booking_id: int
 
 
 GetEmailRequest = GetEmailRequestEmail | GetEmailRequestDomain

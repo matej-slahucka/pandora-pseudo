@@ -17,19 +17,19 @@ class ResourceRepository(ABC):
         ...
 
     @abstractmethod
-    def get_rules(self, channel: Channel, carrier: Carrier) -> list[Rule]:
+    def get_rules_sorted_by_usage(
+        self, channel: Channel, carrier: Carrier
+    ) -> list[Rule]:
         ...
 
     @abstractmethod
-    def get_emails_by_usage(
+    def get_resource_with_usage_by_rule(
         self, request: GetEmailRequest, rule: Rule
-    ) -> list[ResourceWithUsage]:
+    ) -> ResourceWithUsage | None:
         ...
 
     @abstractmethod
-    def save_usage(
-        self, email: Email, request: GetEmailRequest
-    ) -> list[ResourceWithUsage]:
+    def save_usage(self, email: Email, request: GetEmailRequest) -> None:
         ...
 
     @abstractmethod

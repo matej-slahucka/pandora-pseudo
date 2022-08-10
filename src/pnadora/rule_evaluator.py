@@ -7,8 +7,8 @@ class RuleEvaluator:
         self._email_repository = email_repository
 
     def get_usable_candidates(self, candidates: list[Email]) -> list[StoredEmail]:
-        stored_emailes = self._email_repository.find_emails(candidates)
-        active_emails = self._filter_active_emails(stored_emailes)
+        stored_emails = self._email_repository.find_emails(candidates)
+        active_emails = self._filter_active_emails(stored_emails)
         # TODO: check for rules whether the domain can be used!
         return active_emails
 

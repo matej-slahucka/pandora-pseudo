@@ -1,4 +1,5 @@
-from ...models import Email
+from src.pnadora.models import Email
+
 from .email_algorithm_generator import EmailAlgorithmGenerator
 
 

@@ -1,15 +1,9 @@
-from pnadora.email_selector.email_generator.booking_id_email_generator import (
-    BookingIdEmailGenerator,
-)
-from pnadora.email_selector.email_generator.full_name_email_generator import (
-    FullNameEmailGenerator,
-)
-from pnadora.email_selector.email_generator.shortened_name_email_generator import (
-    ShortenedNameEmailGenerator,
-)
+from src.pnadora.models import Algorithm, AlgorithmData
 
-from ...models import Algorithm, AlgorithmData
-from .email_algorithm_generator import EmailAlgorithmGenerator
+from .algorithms.booking_id_email_generator import BookingIdEmailGenerator
+from .algorithms.email_algorithm_generator import EmailAlgorithmGenerator
+from .algorithms.full_name_email_generator import FullNameEmailGenerator
+from .algorithms.shortened_name_email_generator import ShortenedNameEmailGenerator
 
 
 class EmailAlgorithmGeneratorFactory:

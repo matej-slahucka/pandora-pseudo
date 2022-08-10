@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 
-from ...models import Email
+from src.pnadora.models import Email
 
 
 class EmailAlgorithmGenerator(ABC):

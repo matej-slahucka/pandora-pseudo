@@ -1,7 +1,7 @@
 from typing import TypeGuard
 
+from ..email_generator import EmailGenerator
 from ..models import Domain, Email, GetEmailRequest, GetEmailRequestDomain, Resource
-from .email_generator import EmailGenerator
 from .resource_selector import EmailSelector
 
 

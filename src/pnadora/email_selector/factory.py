@@ -1,9 +1,8 @@
-from pnadora.email_selector.booking_id_email_selector import BookingIdEmailSelector
-
 from ..email_selector.domain_selector import FromDomainSelector
 from ..logger import Logger
 from ..models import Domain, Email, GetEmailRequestDomain, GetEmailRequestEmail, Tier
 from ..repositories.email_repository import ResourceRepository
+from .booking_id_email_selector import BookingIdEmailSelector
 from .email_selector import FromEmailSelector
 from .resource_selector import EmailSelector
 

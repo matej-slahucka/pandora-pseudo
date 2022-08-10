@@ -1,0 +1,20 @@
+# Common
+.dockerignore
+.cache
+CHANGELOG.md
+docker-compose*
+Dockerfile
+README.md
+LICENSE
+
+# Python
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+.Python
+*venv
+
+# Version control
+.git
+.gitignore
